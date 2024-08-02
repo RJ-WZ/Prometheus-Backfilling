@@ -12,7 +12,7 @@ from PyQt5.QtCore import *
 class main_window(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowIcon(QIcon(r"C:\Users\RJ\docker\openTSDB_push_delete\backfill_status\PYQT_Backfill\logo.png"))
+        self.setWindowIcon(QIcon(r"C:\Users\RJ\docker\openTSDB_push_delete\backfill_status\PYQT_Backfill\icon\logo.png"))
         self.setWindowTitle("Prometheus Backfilling")
         self.setFixedSize(500, 900)
         self.centralWidget = QWidget()
@@ -106,8 +106,10 @@ class main_window(QMainWindow):
         self.top_layout.addWidget(self.metric_type)
 
         self.submit_button = QPushButton("Submit", self)
-        self.submit_button.setStyleSheet("background-color: #ABC4FF; border-radius: 5px;")
+        self.submit_button.setStyleSheet("background-color: #808af1; border-radius: 10px;")
         self.submit_button.setFixedHeight(35)
+        self.submit_button.setIcon(QIcon(r"C:\Users\RJ\docker\openTSDB_push_delete\backfill_status\PYQT_Backfill\icon\arrow.png"))
+        self.submit_button.setIconSize(QSize(24, 24))
         self.top_layout.addWidget(self.submit_button)
         self.submit_button.clicked.connect(self.status_backfill_data_generator)
 
@@ -167,9 +169,12 @@ class main_window(QMainWindow):
         self.csv_input = QLineEdit()
         self.csv_input.setFixedHeight(35)
         self.csv_input.setStyleSheet("background-color: #C1D3FE; border-radius: 5px")
-        self.csv_button = QPushButton("Browse")
-        self.csv_button.setFixedHeight(35)
-        self.csv_button.setStyleSheet("background-color: #ABC4FF; border-radius: 5px;")
+        self.csv_button = QPushButton()
+        self.csv_button.setIcon(QIcon(r"C:\Users\RJ\docker\openTSDB_push_delete\backfill_status\PYQT_Backfill\icon\browse.png"))
+        self.csv_button.setFixedSize(35, 35)
+
+        self.csv_button.setStyleSheet("background-color: #808af1; border-radius: 5px;")
+        self.csv_button.setIconSize(QSize(24, 24))
         self.csv_button.clicked.connect(self.browse_csv)
 
         self.bottom_panel_label = QLabel("Request Total Backfilling")
@@ -179,8 +184,10 @@ class main_window(QMainWindow):
         self.bottom_panel_label.setAlignment(Qt.AlignCenter)
 
         self.bottom_layout.addWidget(self.csv_label)
-        self.bottom_layout.addWidget(self.csv_input)
-        self.bottom_layout.addWidget(self.csv_button)
+        self.csv_layout = QHBoxLayout()
+        self.csv_layout.addWidget(self.csv_input)
+        self.csv_layout.addWidget(self.csv_button)
+        self.bottom_layout.addLayout(self.csv_layout)
 
         # Job Name layout
         self.job_name_label = QLabel("Job Name:")
@@ -190,7 +197,6 @@ class main_window(QMainWindow):
         self.bottom_layout.addWidget(self.job_name_label)
         self.bottom_layout.addWidget(self.job_name_input)
 
-    
         # Metric Name layout
         self.metric_name_label = QLabel("Metric Name:")
         self.metric_name_input = QLineEdit()
@@ -198,7 +204,6 @@ class main_window(QMainWindow):
         self.metric_name_input.setStyleSheet("background-color: #C1D3FE; border-radius: 5px")
         self.bottom_layout.addWidget(self.metric_name_label)
         self.bottom_layout.addWidget(self.metric_name_input)
-
     
         # Metric Type layout
         self.type_label = QLabel("Metric Type:")
@@ -209,11 +214,12 @@ class main_window(QMainWindow):
         self.bottom_layout.addWidget(self.type_label)
         self.bottom_layout.addWidget(self.type_input)
 
-    
         # Submit button
         self.submit_button = QPushButton("Submit")
+        self.submit_button.setIcon(QIcon(r"C:\Users\RJ\docker\openTSDB_push_delete\backfill_status\PYQT_Backfill\icon\arrow.png"))
+        self.submit_button.setIconSize(QSize(24, 24))
         self.submit_button.setFixedHeight(35)
-        self.submit_button.setStyleSheet("background-color: #ABC4FF; border-radius: 5px;")
+        self.submit_button.setStyleSheet("background-color: #808af1; border-radius: 10px;")
         self.submit_button.clicked.connect(self.process_backfill)
         self.bottom_layout.addWidget(self.submit_button)
 
@@ -345,7 +351,7 @@ class main_window(QMainWindow):
                         f.write(full_line)
                         unique_lines.add(full_line)
                 f.write("# EOF")
-                
+
         except TypeError as e:
             error_message = f"An unexpected error occurred: {str(e)}"
             print(error_message)
@@ -357,7 +363,7 @@ if sys.platform.startswith('win'):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    app.setWindowIcon(QIcon(r"C:\Users\RJ\docker\openTSDB_push_delete\backfill_status\PYQT_Backfill\logo.png"))
+    app.setWindowIcon(QIcon(r"C:\Users\RJ\docker\openTSDB_push_delete\backfill_status\PYQT_Backfill\icon\logo.png"))
     window = main_window()
     window.show()
     sys.exit(app.exec_())
