@@ -4,7 +4,7 @@
 ```pip install pyinstaller```
 
 2. Change directory to the Python script directory
-cd <path>
+```cd <path>```
 
 3. Compile Python script to .exe
 ```(--name = output name; --onefile = single executable file)```
