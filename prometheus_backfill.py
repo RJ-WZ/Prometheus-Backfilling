@@ -367,7 +367,8 @@ if sys.platform.startswith('win'):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    app.setWindowIcon(QIcon(r"C:\Users\RJ\docker\openTSDB_push_delete\backfill_status\PYQT_Backfill\icon\logo.png"))
+    taskbar_icon = os.path.join(os.path.dirname(os.path.abspath(__file__)), "icon", "logo.png")
+    app.setWindowIcon(QIcon(taskbar_icon))
     window = main_window()
     window.show()
     sys.exit(app.exec_())
