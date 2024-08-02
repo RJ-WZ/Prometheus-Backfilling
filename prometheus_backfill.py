@@ -12,7 +12,8 @@ from PyQt5.QtCore import *
 class main_window(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowIcon(QIcon(r"C:\Users\RJ\docker\openTSDB_push_delete\backfill_status\PYQT_Backfill\icon\logo.png"))
+        logo_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "icon", "logo.png")
+        self.setWindowIcon(QIcon(logo_path))
         self.setWindowTitle("Prometheus Backfilling")
         self.setFixedSize(500, 900)
         self.centralWidget = QWidget()
@@ -108,7 +109,8 @@ class main_window(QMainWindow):
         self.submit_button = QPushButton("Submit", self)
         self.submit_button.setStyleSheet("background-color: #808af1; border-radius: 10px;")
         self.submit_button.setFixedHeight(35)
-        self.submit_button.setIcon(QIcon(r"C:\Users\RJ\docker\openTSDB_push_delete\backfill_status\PYQT_Backfill\icon\arrow.png"))
+        submit_icon_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "icon", "arrow.png")
+        self.submit_button.setIcon(QIcon(submit_icon_path))
         self.submit_button.setIconSize(QSize(24, 24))
         self.top_layout.addWidget(self.submit_button)
         self.submit_button.clicked.connect(self.status_backfill_data_generator)
@@ -170,7 +172,8 @@ class main_window(QMainWindow):
         self.csv_input.setFixedHeight(35)
         self.csv_input.setStyleSheet("background-color: #C1D3FE; border-radius: 5px")
         self.csv_button = QPushButton()
-        self.csv_button.setIcon(QIcon(r"C:\Users\RJ\docker\openTSDB_push_delete\backfill_status\PYQT_Backfill\icon\browse.png"))
+        csv_icon_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "icon", "browse.png")
+        self.csv_button.setIcon(QIcon(csv_icon_path))
         self.csv_button.setFixedSize(35, 35)
 
         self.csv_button.setStyleSheet("background-color: #808af1; border-radius: 5px;")
@@ -216,7 +219,8 @@ class main_window(QMainWindow):
 
         # Submit button
         self.submit_button = QPushButton("Submit")
-        self.submit_button.setIcon(QIcon(r"C:\Users\RJ\docker\openTSDB_push_delete\backfill_status\PYQT_Backfill\icon\arrow.png"))
+        submit_icon_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "icon", "arrow.png")
+        self.submit_button.setIcon(QIcon(submit_icon_path))
         self.submit_button.setIconSize(QSize(24, 24))
         self.submit_button.setFixedHeight(35)
         self.submit_button.setStyleSheet("background-color: #808af1; border-radius: 10px;")
