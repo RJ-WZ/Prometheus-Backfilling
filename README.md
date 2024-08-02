@@ -1,4 +1,4 @@
-# Prometheus-Backfilling
+# Prometheus-Backfilling Executable Program
 
 1. Download PyInstaller
 ```pip install pyinstaller```
