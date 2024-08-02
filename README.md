@@ -1,7 +1,7 @@
 # Prometheus-Backfilling
 
 1. Download PyInstaller
-pip install pyinstaller
+```pip install pyinstaller```
 
 2. Change directory to the Python script directory
 cd <path>
