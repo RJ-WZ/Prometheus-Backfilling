@@ -325,39 +325,31 @@ class main_window(QMainWindow):
 
     def process_epoch_to_metrics(self, epoch_timestamps, template, reference_line, output_file_path):
         try:
-            # Convert epoch timestamps to minutes and count occurrences within the same minute
-            timestamp_counts = {}
+            # Sort the timestamps
+            epoch_timestamps.sort()
+
+            # Group timestamps into 60-second intervals and count occurrences
+            interval_counts = {}
             for epoch in epoch_timestamps:
-                minute = datetime.fromtimestamp(epoch).strftime('%Y-%m-%d %H:%M')
-                timestamp_counts[minute] = timestamp_counts.get(minute, 0) + 1
-    
-            # Generate a list of tuples with epoch and corresponding count
-            epoch_with_counts = [(epoch, timestamp_counts[datetime.fromtimestamp(epoch).strftime('%Y-%m-%d %H:%M')]) 
-                                 for epoch in epoch_timestamps]
-    
-            # Set to track unique metric lines
-            unique_lines = set()
-    
+                interval = epoch // 60 * 60  # Round down to the nearest 60-second interval
+                interval_counts[interval] = interval_counts.get(interval, 0) + 1
+
             # Write the output
             with open(output_file_path, 'w') as f:
                 # Write the HELP and TYPE lines
                 f.write(template + "\n")
-    
-                # Iterate over each epoch_with_counts and write the corresponding metric line
-                for epoch, count in epoch_with_counts:
-                    # Replace the existing value with the count
+
+                # Write a line for each 60-second interval
+                for interval, count in sorted(interval_counts.items()):
+                    # Replace the existing value with the count for this interval
                     new_line = re.sub(r'}\s*\d+', f'}} {count}', reference_line)
-                    # Append the epoch timestamp at the end of the line
-                    full_line = f"{new_line} {epoch}\n"
-    
-                    # Check if the line is unique before writing
-                    if full_line not in unique_lines:
-                        f.write(full_line)
-                        unique_lines.add(full_line)
+                    # Append the interval timestamp at the end of the line
+                    f.write(f"{new_line} {interval}\n")
+
                 f.write("# EOF")
 
-        except TypeError as e:
-            error_message = f"An unexpected error occurred: {str(e)}"
+        except Exception as e:
+            error_message = f"An error occurred while processing epoch timestamps: {str(e)}"
             print(error_message)
             QMessageBox.critical(self, "Error", error_message)
 
